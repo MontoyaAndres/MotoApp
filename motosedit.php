@@ -80,8 +80,21 @@ if (isset($_SESSION['id'])) { ?>
                         $path = 'images/';
                         $path = $path.basename($_FILES['file']['name']);
 
-                        if(move_uploaded_file($_FILES['file']['tmp_name'], $path)) {
-                            $update = "UPDATE motos SET title = '$titleUpdate', description = '$descriptionUpdate', route = '$path' WHERE id = '$id'";
+                        if($path != 'images/') {
+                            if(move_uploaded_file($_FILES['file']['tmp_name'], $path)) {
+                                $update = "UPDATE motos SET title = '$titleUpdate', description = '$descriptionUpdate', route = '$path' WHERE id = '$id'";
+                                $query = mysqli_query($connection, $update) or die(mysqli_error($connection));
+                                if ($query) {
+                                    header('location: motos.php');
+                                    exit();
+                                } else {
+                                    echo mysqli_error($connection);
+                                }
+                            } else {
+                                echo "There was an error uploading the file, please try again!";
+                            }
+                        } else {
+                            $update = "UPDATE motos SET title = '$titleUpdate', description = '$descriptionUpdate' WHERE id = '$id'";
                             $query = mysqli_query($connection, $update) or die(mysqli_error($connection));
                             if ($query) {
                                 header('location: motos.php');
@@ -89,10 +102,7 @@ if (isset($_SESSION['id'])) { ?>
                             } else {
                                 echo mysqli_error($connection);
                             }
-                        } else {
-                            echo "There was an error uploading the file, please try again!";
                         }
-
                     }
                 }
 } else {

@@ -27,25 +27,23 @@ if (isset($_SESSION['id'])) { ?>
 
     <div class="container">
         <div class="row">
-            <div class="row">
-                <?php
-                    $task = mysqli_query($connection, "SELECT * FROM motos") or die(mysqli_error($connection));
-                    $i = 1; while ($row = mysqli_fetch_array($task)) {?>
-                    <div class="col s12 m6">
-                        <div class="card">
-                            <div class="card-image">
-                                <img src="<?php echo $row['route'] ?>">
-                                <a href="motosedit.php?edit=<?php echo $row['id'] ?>" class="btn-floating btn-medium halfway-fab waves-effect waves-light green left"><i class="material-icons">edit</i></a>
-                                <a href="motos.php?delete=<?php echo $row['id'] ?>" class="btn-floating btn-medium halfway-fab waves-effect waves-light red"><i class="material-icons">delete</i></a>
-                            </div>
-                            <div class="card-content">
-                                <h3 class="card-title"><?php echo $row['title'] ?></h3>
-                                <p><?php echo $row['description'] ?></p>
-                            </div>
+            <?php
+                $task = mysqli_query($connection, "SELECT * FROM motos") or die(mysqli_error($connection));
+                $i = 1; while ($row = mysqli_fetch_array($task)) {?>
+                <div class="col s12 m6">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="<?php echo $row['route'] ?>">
+                            <a href="motosedit.php?edit=<?php echo $row['id'] ?>" class="btn-floating btn-medium halfway-fab waves-effect waves-light green left"><i class="material-icons">edit</i></a>
+                            <a href="motos.php?delete=<?php echo $row['id'] ?>" class="btn-floating btn-medium halfway-fab waves-effect waves-light red"><i class="material-icons">delete</i></a>
+                        </div>
+                        <div class="card-content">
+                            <h3 class="card-title"><?php echo $row['title'] ?></h3>
+                            <p><?php echo $row['description'] ?></p>
                         </div>
                     </div>
-                <?php $i++; } ?>
-            </div>
+                </div>
+            <?php $i++; } ?>
         </div>
     </div>
     <script src="js/jquery.min.js"></script>

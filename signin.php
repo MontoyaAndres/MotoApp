@@ -49,7 +49,6 @@ if (isset($_SESSION['id'])) {
 </html>
 
 <?php
-session_start();
 if(isset($_POST['send'])) {
     include_once('connection.php');
     $email = $_POST['email'];
